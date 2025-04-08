@@ -11,6 +11,7 @@ import {
   CardContent,
 } from "@mui/material";
 import { motion } from "framer-motion";
+import Link from "next/link";
 
 export default function JobPosterSignupPage() {
   const [formData, setFormData] = useState({

@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { useSearchParams } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import {
   Box,
   Typography,
@@ -15,10 +15,12 @@ import {
   Divider,
 } from "@mui/material";
 import { motion } from "framer-motion";
+import { Briefcase } from "lucide-react";
 
 export default function Profile() {
   const searchParams = useSearchParams();
   const isEditMode = searchParams.get("edit") === "true";
+  const router = useRouter();
 
   const [user, setUser] = useState({
     name: "Ankush Roy",
@@ -112,6 +114,69 @@ export default function Profile() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
         >
+          <motion.div
+            initial={{ opacity: 0, y: 40 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+            style={{
+              background:
+                "linear-gradient(135deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0.05) 100%)",
+              backdropFilter: "blur(10px)",
+              WebkitBackdropFilter: "blur(10px)",
+              border: "1px solid rgba(255, 255, 255, 0.2)",
+              borderRadius: "24px",
+              boxShadow:
+                "0 12px 40px rgba(0, 0, 0, 0.15), 0 8px 20px rgba(0, 0, 0, 0.1)",
+            }}
+            className="w-full px-8 py-10 mb-12 relative overflow-hidden"
+          >
+            <motion.div
+              animate={{ rotate: [0, 360] }}
+              transition={{ repeat: Infinity, duration: 10, ease: "linear" }}
+              className="absolute top-[-40px] right-[-40px] opacity-20"
+            >
+              <Briefcase size={100} />
+            </motion.div>
+
+            <div className="relative z-10 flex flex-col md:flex-row items-center justify-between gap-6">
+              <div>
+                <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-2">
+                  Let’s create a job posting for you
+                </h2>
+                <p className="text-lg text-gray-700 max-w-xl">
+                  Share the opportunity, define your need, and we'll help you
+                  find the right talent fast.
+                </p>
+              </div>
+
+              <motion.div
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+              >
+                <Button
+                  variant="contained"
+                  size="large"
+                  sx={{
+                    background: "linear-gradient(to right, #4f46e5, #3b82f6)",
+                    borderRadius: "9999px",
+                    px: 4,
+                    py: 1.5,
+                    fontWeight: "bold",
+                    textTransform: "none",
+                    fontSize: "1rem",
+                    color: "#fff",
+                    boxShadow: "0 4px 14px rgba(59, 130, 246, 0.4)",
+                    "&:hover": {
+                      background: "linear-gradient(to right, #4338ca, #2563eb)",
+                    },
+                  }}
+                  onClick={() => router.push("/create-job")}
+                >
+                  Post Now
+                </Button>
+              </motion.div>
+            </div>
+          </motion.div>
           <Card
             sx={{
               borderRadius: 5,
